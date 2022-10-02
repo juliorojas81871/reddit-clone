@@ -1,14 +1,17 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import {Header} from '../components/index'
+import {PostBox} from '../components/index'
 
 const Home: NextPage = () => {
   return (
-    <div className="">
+    <div>
       <Head>
         <title>Reddit clone</title>
         <link rel="icon" href="/favicon.ico" />
-      </Head>     
+      </Head>
+      {/* PostBox */}
+      <PostBox />
+      {/* Feed */}
     </div>
   )
 }
