@@ -66,7 +66,7 @@ const Header = () => {
           </div>
           <div className="flex-1 text-xs">
             {/* optional handling if there is no user name it won't throw an error */}
-            <p className="truncate">{session?.user?.name}</p>
+            <p className="truncate text-black">{session?.user?.name}</p>
             <p className="text-gray-400">Sign Out</p>
           </div>
           <ChevronDownIcon className="h-5 flex-shrink-0 text-gray-400" />
