@@ -3,8 +3,12 @@ import { Avatar } from "./index";
 import { LinkIcon, PhotographIcon } from "@heroicons/react/outline";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import {ADD_POST} from '../graphql/mutations'
-import { useMutation } from '@apollo/client'
+import { ADD_POST, ADD_SUBREDDIT } from "../graphql/mutations";
+import { useMutation } from "@apollo/client";
+import client from "../apollo-client";
+import { GET_SUBREDDIT_BY_TOPIC } from "../graphql/quieres";
+import toast from "react-hot-toast";
+
 type FormData = {
   postTitle: string;
   postBody: string;
@@ -12,10 +16,12 @@ type FormData = {
   subreddit: string;
 };
 
+
 const PostBox = () => {
   const { data: session } = useSession();
   const [imageBoxOpen, setImageBoxOpen] = useState(false);
-  const [addPost] = useMutation(ADD_POST)
+  const [addPost] = useMutation(ADD_POST);
+  const [addSubreddit] = useMutation(ADD_SUBREDDIT);
 
   const {
     register,
@@ -27,10 +33,83 @@ const PostBox = () => {
 
   const onSubmit = handleSubmit(async (formData) => {
     console.log(formData);
+    const notification = toast.loading("Creating new post...");
 
     try {
-    } catch(error) {
+      // query for the subreddit topic...
+      const {
+        data: { getSubredditListByTopic },
+      } = await client.query({
+        query: GET_SUBREDDIT_BY_TOPIC,
+        variables: {
+          // Use props first, fallback to form
+          topic: formData.subreddit,
+        },
+      });
+      const subredditExists = getSubredditListByTopic.length > 0;
+      console.log(
+        'Subreddits found with topic: ',
+        formData.subreddit,
+        getSubredditListByTopic
+      )
+      if (!subredditExists) {
+        // create subreddit...
+        const {
+          data: { insertSubreddit: newSubreddit },
+        } = await addSubreddit({
+          variables: {
+            topic: formData.subreddit,
+          },
+        });
+        console.log("Creating post...", formData);
+        // incase there is no image
+        const image = formData.postImage || "";
 
+        const {
+          data: { insertPost: newPost },
+        } = await addPost({
+          variables: {
+            body: formData.postBody,
+            image: image,
+            subreddit_id: newSubreddit.id,
+            title: formData.postTitle,
+            username: session?.user?.name,
+          },
+        });
+        console.log("new post added", newPost);
+      } else {
+        // use existing subreddit...
+        console.log("Using existing subreddit!");
+        console.log(getSubredditListByTopic);
+
+        const image = formData.postImage || "";
+
+        const {
+          data: { insertPost: newPost },
+        } = await addPost({
+          variables: {
+            body: formData.postBody,
+            image: image,
+            subreddit_id: getSubredditListByTopic[0].id,
+            title: formData.postTitle,
+            username: session?.user?.name,
+          },
+        });
+        console.log("new post added:", newPost);
+      }
+      // After the post has been added!
+      setValue("postBody", "");
+      setValue("postImage", "");
+      setValue("postTitle", "");
+      setValue("subreddit", "");
+
+      toast.success("New Post Created!", {
+        id: notification,
+      });
+    } catch (error) {
+      toast.error("Whoops something went wrong!", {
+        id: notification,
+      });
     }
   });
 
@@ -94,26 +173,26 @@ const PostBox = () => {
           )}
         </div>
       )}
-       {/* Errors */}
-       {Object.keys(errors).length > 0 && (
-            <div className="space-y-2 p-2 text-red-500">
-              {errors.postTitle?.type === "required" && (
-                <p>- A Post Title is required</p>
-              )}
+      {/* Errors */}
+      {Object.keys(errors).length > 0 && (
+        <div className="space-y-2 p-2 text-red-500">
+          {errors.postTitle?.type === "required" && (
+            <p>- A Post Title is required</p>
+          )}
 
-              {errors.subreddit?.type === "required" && (
-                <p>- A Subreddit is required</p>
-              )}
-            </div>
+          {errors.subreddit?.type === "required" && (
+            <p>- A Subreddit is required</p>
           )}
-          {!!watch("postTitle") && (
-            <button
-              type="submit"
-              className="w-full rounded-full bg-blue-400 p-2 text-white"
-            >
-              Create Post
-            </button>
-          )}
+        </div>
+      )}
+      {!!watch("postTitle") && (
+        <button
+          type="submit"
+          className="w-full rounded-full bg-blue-400 p-2 text-white"
+        >
+          Create Post
+        </button>
+      )}
     </form>
   );
 };
