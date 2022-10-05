@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ADD_POST, ADD_SUBREDDIT } from "../graphql/mutations";
 import { useMutation } from "@apollo/client";
 import client from "../apollo-client";
-import { GET_SUBREDDIT_BY_TOPIC } from "../graphql/quieres";
+import { GET_SUBREDDIT_BY_TOPIC, GET_ALL_POSTS } from "../graphql/queries";
 import toast from "react-hot-toast";
 
 type FormData = {
@@ -16,11 +16,15 @@ type FormData = {
   subreddit: string;
 };
 
-
 const PostBox = () => {
   const { data: session } = useSession();
   const [imageBoxOpen, setImageBoxOpen] = useState(false);
-  const [addPost] = useMutation(ADD_POST);
+  const [addPost] = useMutation(ADD_POST, {
+    refetchQueries: [
+      GET_ALL_POSTS,
+      'getPostList',
+    ],
+  })
   const [addSubreddit] = useMutation(ADD_SUBREDDIT);
 
   const {
@@ -48,10 +52,10 @@ const PostBox = () => {
       });
       const subredditExists = getSubredditListByTopic.length > 0;
       console.log(
-        'Subreddits found with topic: ',
+        "Subreddits found with topic: ",
         formData.subreddit,
         getSubredditListByTopic
-      )
+      );
       if (!subredditExists) {
         // create subreddit...
         const {
@@ -116,9 +120,9 @@ const PostBox = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="sticky top-16 z-50 bg-white border rounded-md border-gray-300 p-2"
+      className="sticky top-16 z-40 bg-white border rounded-md border-gray-300 p-2"
     >
-      <div className="flex items-center spax-x-3">
+      <div className="flex items-center space-x-3">
         {/* Avatar */}
         <Avatar />
         <input
