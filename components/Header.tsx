@@ -15,13 +15,16 @@ import {
   MenuIcon,
 } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 const Header = () => {
   const { data: session } = useSession();
   return (
-    <div className="flex bg-white px-4 py-2 shadow-sm sticky top-0 z-50">
-      <div className="relative h-10 w-20 flex-shrink-0 cursor-pointer">
-        <Image src="/assets/reddit.png" objectFit="contain" layout="fill" />
+    <div className="sticky top-0 z-50 flex bg-white px-1 sm:px-4 py-2 shadow-sm items-center justify-evenly">
+    <div className="flex relative sm:h-10 sm:w-20 flex-shrink-0 h-6 w-14 cursor-pointer">
+        <Link href='/'>
+          <Image src="/assets/reddit.png" objectFit="contain" layout="fill" />
+        </Link>
       </div>
       <div className="flex items-center mx-7 xl:min-w-[300px]">
         <HomeIcon className="h-5 w-5" />
