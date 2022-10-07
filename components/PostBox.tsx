@@ -20,6 +20,7 @@ type Props = {
   subreddit?: string;
 };
 
+
 const PostBox = ({ subreddit }: Props) => {
   const { data: session } = useSession();
   const [imageBoxOpen, setImageBoxOpen] = useState(false);
@@ -37,7 +38,6 @@ const PostBox = ({ subreddit }: Props) => {
   } = useForm<FormData>();
 
   const onSubmit = handleSubmit(async (formData) => {
-    console.log(formData);
     const notification = toast.loading("Creating new post...");
 
     try {
