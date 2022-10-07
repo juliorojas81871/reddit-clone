@@ -53,6 +53,7 @@ type Query {
       table: "comment"
       configuration: "postgresql_config"
     )
+
   getCommentByPostId(post_id: ID!): [Comment]
     @dbquery(
       type: "postgresql"
@@ -61,6 +62,7 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
   getVotesByPostId(post_id: ID!): [Vote]
     @dbquery(
       type: "postgresql"
@@ -80,6 +82,16 @@ type Query {
       configuration: "postgresql_config"
     )
 
+  getSubredditListLimit(limit: Int!): [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * from "subreddit"
+      order by "created_at" desc
+      limit $1
+      """
+      configuration: "postgresql_config"
+    )
   """
   This query is an example of how to simply paginate your responses.
   """
@@ -91,6 +103,7 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
   """
   In this example, a single query parameter is passed. If the request to the DB will
   return at most one value you can remove the square brackets from the result.
@@ -103,10 +116,12 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
   """
   In this example, two query parameters are passed. If the request to the DB will
   return at most one value you can remove the square brackets from the result.
   """
+  
   getCommentByPost_idAndUsername(post_id: ID!, username: String!): [Comment]
     @dbquery(
       type: "postgresql"

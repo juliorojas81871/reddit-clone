@@ -105,14 +105,14 @@ const Post = ({ post }: Props) => {
           <ArrowUpIcon
             onClick={() => upVote(true)}
             className={`voteButtons hover:text-blue-400 ${
-              vote && 'text-blue-400'
+              vote && "text-blue-400"
             }`}
           />
           <p className="text-xs font-bold text-black">{displayVotes(data)}</p>
           <ArrowDownIcon
             onClick={() => upVote(false)}
             className={`voteButtons hover:text-red-400 ${
-              vote == false && 'text-red-400'
+              vote == false && "text-red-400"
             }`}
           />
         </div>
@@ -126,7 +126,7 @@ const Post = ({ post }: Props) => {
                 <span className="font-bold text-black hover:text-blue-400 hover:underline">
                   r/{post.subreddit[0]?.topic}
                 </span>
-              </Link>{' '}
+              </Link>{" "}
               • Posted by u/{post.username} <TimeAgo date={post.created_at} />
             </p>
           </div>
@@ -144,7 +144,9 @@ const Post = ({ post }: Props) => {
           <div className="flex space-x-1 sm:space-x-4 text-gray-400">
             <div className="postButtons">
               <ChatAltIcon className="h-6 w-6" />
-              <p className="text-xs sm:text-sm">{post.comments.length} Comments</p>
+              <p className="text-xs sm:text-sm">
+                {post.comments.length} Comments
+              </p>
             </div>
             <div className="postButtons">
               <GiftIcon className="h-6 w-6" />

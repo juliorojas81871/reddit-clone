@@ -23,11 +23,7 @@ const Header = () => {
     <div className="sticky top-0 z-50 flex bg-white px-1 sm:px-4 py-2 shadow-sm items-center justify-evenly">
       <div className="flex relative sm:h-10 sm:w-20 flex-shrink-0 h-6 w-14 cursor-pointer">
         <Link href="/">
-          <Image
-            objectFit="contain"
-            src="/assets/reddit.png"
-            layout="fill"
-          />
+          <Image objectFit="contain" src="/assets/reddit.png" layout="fill" />
         </Link>
       </div>
 
@@ -59,7 +55,7 @@ const Header = () => {
         <GlobeIcon className="icon" />
         <VideoCameraIcon className="icon" />
         <hr className="h-10 border border-gray-100" />
-        <ChatIcon  className="icon" />
+        <ChatIcon className="icon" />
         <BellIcon className="icon" />
         <PlusIcon className="icon" />
         <SpeakerphoneIcon className="icon" />
@@ -88,7 +84,9 @@ const Header = () => {
           <div className="flex-1 text-xs">
             <p className="truncate">{session?.user?.name}</p>
             <p className="hidden sm:flex text-gray-400">1 Karma</p>
-            <p className="flex justify-center sm:hidden text-gray-400">Sign Out</p>
+            <p className="flex justify-center sm:hidden text-gray-400">
+              Sign Out
+            </p>
           </div>
           <ChevronDownIcon className="hidden sm:flex h-5 flex-shrink-0 text-gray-400" />
         </div>

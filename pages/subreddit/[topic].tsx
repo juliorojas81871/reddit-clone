@@ -21,7 +21,7 @@ const Subreddit = () => {
         </div>
       </div>
       <div className="mx-auto mt-5 max-w-5xl pb-10">
-        <PostBox subreddit={topic as string}/>
+        <PostBox subreddit={topic as string} />
         <Feed topic={topic as string} />
       </div>
     </div>

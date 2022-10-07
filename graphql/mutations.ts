@@ -8,7 +8,7 @@ export const ADD_SUBREDDIT = gql`
       created_at
     }
   }
-`
+`;
 
 export const ADD_POST = gql`
   mutation MyMutation(
@@ -34,7 +34,7 @@ export const ADD_POST = gql`
       username
     }
   }
-`
+`;
 export const ADD_COMMENT = gql`
   mutation MyMutation($post_id: ID!, $username: String!, $text: String!) {
     insertComment(post_id: $post_id, text: $text, username: $username) {
@@ -58,4 +58,3 @@ export const ADD_VOTE = gql`
     }
   }
 `;
-

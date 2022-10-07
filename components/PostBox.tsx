@@ -20,7 +20,6 @@ type Props = {
   subreddit?: string;
 };
 
-
 const PostBox = ({ subreddit }: Props) => {
   const { data: session } = useSession();
   const [imageBoxOpen, setImageBoxOpen] = useState(false);
