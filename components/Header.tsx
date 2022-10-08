@@ -41,7 +41,7 @@ const Header = () => {
 
       {/* Search box */}
       <form className="max-w-[48vw] sm:max-w-full flex sm:flex-1 items-center space-x-1 sm:space-x-2 border border-gray-200 rounded-sm bg-gray-100 px-1 sm:px-3 py-1">
-        <SparklesIcon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-400" />
+        <SearchIcon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-400" />
         <input
           className="sm:flex-1 bg-transparent outline-none"
           type="text"
