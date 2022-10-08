@@ -121,7 +121,6 @@ type Query {
   In this example, two query parameters are passed. If the request to the DB will
   return at most one value you can remove the square brackets from the result.
   """
-  
   getCommentByPost_idAndUsername(post_id: ID!, username: String!): [Comment]
     @dbquery(
       type: "postgresql"
