@@ -16,6 +16,7 @@ import {
 } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import {Dropdown} from './'
 
 const Header = () => {
   const { data: session } = useSession();
@@ -67,8 +68,9 @@ const Header = () => {
 
       {/* Sign In/Sign Out button */}
 
-      {session ? (
-        <div
+      {/* {session ? ( */}
+      <Dropdown />
+        {/* <div
           onClick={() => signOut()}
           className="items-center sm:flex space-x-1 sm:space-x-2 border border-gray-100 p-0.5 sm:p-1 cursor-pointer hover:after:content-['Sign_Out'] hover:after:absolute after:top-12 after:right-4 after:text-gray-400 hover:after:border-2 after:rounded-sm hover:after:border-[#ff4401] after:bg-gray-50 hover:after:w-18 sm:hover:after:w-[130px] hover:after:text-center"
         >
@@ -89,8 +91,8 @@ const Header = () => {
             </p>
           </div>
           <ChevronDownIcon className="hidden sm:flex h-5 flex-shrink-0 text-gray-400" />
-        </div>
-      ) : (
+        </div> */}
+      {/* ) : (
         <div
           onClick={() => signIn()}
           className=" text-xs lg:text-base items-center flex space-x-1  lg:space-x-2 border border-gray-100 p-2 cursor-pointer"
@@ -106,7 +108,7 @@ const Header = () => {
 
           <p className="text-gray-400">Sign In</p>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

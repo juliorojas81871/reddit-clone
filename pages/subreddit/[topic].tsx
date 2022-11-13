@@ -1,12 +1,16 @@
 import { useRouter } from "next/router";
 import { Avatar, Feed, PostBox } from "../../components";
-
+import Head from "next/head";
 const Subreddit = () => {
   const {
     query: { topic },
   } = useRouter();
   return (
     <div className={`h-24 bg-red-400 p-8`}>
+      <Head>
+        <title>r/{topic} subreddit - Reddit Clone</title>
+        <link rel="icon" href="/reddit-icon.png" />
+      </Head>
       <div className="-mx-8 mt-10 bg-white">
         <div className="mx-auto flex max-w-5xl items-center space-x-4 pb-3">
           <div className="-mt-5 ">

@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import TimeAgo from "react-timeago";
+import Head from "next/head";
 
 type FormData = {
   comment: string;
@@ -50,9 +51,14 @@ const PostPage = () => {
   };
 
   const post: Post = data?.getPostListByPostId;
-  console.log(data);
+
   return (
     <div className="mx-auto my-7 max-w-5xl">
+      <Head>
+        <title>Post {router.query.postId} - Reddit Clone </title>
+        <link rel="icon" href="/reddit-icon.png" />
+      </Head>
+
       <Post post={post} />
       <div className="rounded-b-md border border-t-0 border-gray-300 bg-white p-5 pl-16 -mt-1">
         <p className="text-sm">
