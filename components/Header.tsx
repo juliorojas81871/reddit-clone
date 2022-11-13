@@ -14,9 +14,9 @@ import {
   SearchIcon,
   MenuIcon,
 } from "@heroicons/react/solid";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import Link from "next/link";
-import {Dropdown} from './'
+import { Dropdown } from "./";
 
 const Header = () => {
   const { data: session } = useSession();
@@ -62,37 +62,15 @@ const Header = () => {
         <SpeakerphoneIcon className="icon" />
       </div>
 
-      <div className="ml-1 sm:ml-5 flex items-center lg:hidden">
+      <div className="hidden sm:flex ml-1 sm:ml-5  items-center lg:hidden">
         <MenuIcon className="icon" />
       </div>
 
       {/* Sign In/Sign Out button */}
 
-      {/* {session ? ( */}
-      <Dropdown />
-        {/* <div
-          onClick={() => signOut()}
-          className="items-center sm:flex space-x-1 sm:space-x-2 border border-gray-100 p-0.5 sm:p-1 cursor-pointer hover:after:content-['Sign_Out'] hover:after:absolute after:top-12 after:right-4 after:text-gray-400 hover:after:border-2 after:rounded-sm hover:after:border-[#ff4401] after:bg-gray-50 hover:after:w-18 sm:hover:after:w-[130px] hover:after:text-center"
-        >
-          <div className="hidden sm:inline-flex relative h-5 w-5 flex-shrink-0 ">
-            <Image
-              objectFit="contain"
-              src="/assets/icon.png"
-              layout="fill"
-              alt="reddit_icon"
-            />
-          </div>
-
-          <div className="flex-1 text-xs">
-            <p className="truncate">{session?.user?.name}</p>
-            <p className="hidden sm:flex text-gray-400">1 Karma</p>
-            <p className="flex justify-center sm:hidden text-gray-400">
-              Sign Out
-            </p>
-          </div>
-          <ChevronDownIcon className="hidden sm:flex h-5 flex-shrink-0 text-gray-400" />
-        </div> */}
-      {/* ) : (
+      {session ? (
+        <Dropdown />
+      ) : (
         <div
           onClick={() => signIn()}
           className=" text-xs lg:text-base items-center flex space-x-1  lg:space-x-2 border border-gray-100 p-2 cursor-pointer"
@@ -108,7 +86,7 @@ const Header = () => {
 
           <p className="text-gray-400">Sign In</p>
         </div>
-      )} */}
+      )}
     </div>
   );
 };

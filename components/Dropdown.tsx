@@ -2,23 +2,15 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import Image from "next/image";
 
 const Dropdown = () => {
   const { data: session } = useSession();
 
   return (
     <div>
-      <Menu
-        as="div"
-        
-      >
-        <Menu.Button className="-m-1 hidden cursor-pointer items-center space-x-2 border border-gray-100 p-2 lg:flex hover:bg-gray-100">
-          <img
-           className="h-5 w-5"
-            src="/assets/icon.png"
-            alt=''
-          />
+      <Menu as="div">
+        <Menu.Button className="-m-1 cursor-pointer items-center space-x-2 border border-gray-100 p-2 flex hover:bg-gray-100">
+          <img className="h-5 w-5 hidden sm:flex" src="/assets/icon.png" alt="" />
           <div className="flex-1 text-xs">
             <p className="truncate">{session?.user?.name}</p>
             <p className="text-gray-400">1 Karma</p>
@@ -34,7 +26,7 @@ const Dropdown = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 bg-white  w-32 mt-2 origin-top-right divide-y divide-gray-100 rounded-md shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 bg-white w-32 mt-2 origin-top-right divide-y divide-gray-100 rounded-md shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1 ">
               <Menu.Item>
                 {({ active }) => (
